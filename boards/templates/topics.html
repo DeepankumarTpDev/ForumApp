@@ -18,7 +18,35 @@
 
 {% block content %}
     <!-- We will add the main content here soon. -->
+    <div class="mb-4">
+      <a href="{% url 'new_topic' board.pk %}" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition duration-200">
+          New Topic
+      </a>
+    </div>  
     <div class="bg-white p-6 shadow-md rounded-lg">
-      <!-- This container is for the future content -->
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-300 shadow-md rounded-lg">
+          <thead>
+            <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+              <th class="py-3 px-6 text-left">Topic</th>
+              <th class="py-3 px-6 text-left">Starter</th>
+              <th class="py-3 px-6 text-left">Replies</th>
+              <th class="py-3 px-6 text-left">Views</th>
+              <th class="py-3 px-6 text-left">Last Update</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-600 text-sm font-light">
+            {% for topic in board.topics.all %}
+              <tr class="border-b hover:bg-gray-100">
+                <td class="py-3 px-6">{{ topic.subject }}</td>
+                <td class="py-3 px-6">{{ topic.starter.username }}</td>
+                <td class="py-3 px-6">0</td>
+                <td class="py-3 px-6">0</td>
+                <td class="py-3 px-6">{{ topic.last_updated }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
 {% endblock %}

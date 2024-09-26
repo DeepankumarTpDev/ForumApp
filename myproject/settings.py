@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'boards',
     'tailwind',
+    'widget_tweaks',
 ]
 
 # TAILWIND_APP_NAME = 'your_tailwind_app'  # Use the actual name of your Tailwind app here

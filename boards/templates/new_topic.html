@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Start a New Topic
+{% endblock %}
+
+{% block breadcrumb %}
+  <ol class="breadcrumb inline-flex items-center space-x-2">
+    <li class="inline-flex items-center">
+      <a href="{% url 'home' %}" class="text-blue-600 hover:underline">Boards</a>
+      <svg class="w-4 h-4 mx-2 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>  
+    </li>
+    <li class="inline-flex items-center">
+      <a href="{% url 'board_topics' board.pk %}" class="text-blue-600 hover:underline">{{ board.name }}</a>
+      <svg class="w-4 h-4 mx-2 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </li>
+    <li class="inline-flex items-center text-gray-700">
+      New Topic
+    </li>
+  </ol>
+{% endblock %}
+
+
+{% block content %}
+    <!-- We will add the main content here soon. -->
+    <form method="post" novalidate class="space-y-4">
+      {% csrf_token %}
+      {% include 'includes/form.html' %}
+      <button type="submit" class="w-full bg-green-600 text-white font-semibold py-2 rounded hover:bg-green-700">Post</button>
+    </form>
+    
+{% endblock %}
