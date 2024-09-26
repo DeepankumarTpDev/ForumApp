@@ -21,5 +21,5 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True) 
     created_by = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
-    updated_by = models.ForeignKey(User, related_name='+', on_delete=models.CASCADE) #This instructs Django that we don’t need this reverse relationship
+    updated_by = models.ForeignKey(User, related_name='+', null=True, on_delete=models.CASCADE) #This instructs Django that we don’t need this reverse relationship
 

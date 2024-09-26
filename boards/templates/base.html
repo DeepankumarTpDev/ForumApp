@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Django Boards{% endblock %}</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  </head>
+  <body class="bg-gray-100">
+    
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-900 text-white shadow-lg">
+      <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <a href="{% url 'home' %}" class="text-2xl font-bold hover:text-blue-200">
+          Django Boards
+        </a>
+      </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container mx-auto my-8 px-4">
+
+      <!-- Breadcrumbs -->
+      <nav class="text-gray-700 text-sm mb-6">
+        <ol class="list-reset flex">
+          {% block breadcrumb %}
+          {% endblock %}
+        </ol>
+      </nav>
+
+      <!-- Content Block -->
+      <div class="bg-white p-8 shadow rounded-lg">
+        {% block content %}
+        {% endblock %}
+      </div>
+
+    </div>
+
+  </body>
+</html>

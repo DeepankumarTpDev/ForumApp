@@ -39,7 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'boards',
+    'tailwind',
 ]
+
+# TAILWIND_APP_NAME = 'your_tailwind_app'  # Use the actual name of your Tailwind app here
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
