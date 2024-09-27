@@ -7,27 +7,61 @@
     <title>{% block title %}Django Boards{% endblock %}</title>
     <!-- Tailwind CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery Script -->
+    <script>
+      $(document).ready(function() {
+        $('#userMenuButton').click(function() {
+          $('#userMenu').toggle();
+        });
+    
+        // Close the dropdown if clicking outside
+        $(document).click(function(event) {
+          if (!$(event.target).closest('#userMenuButton').length) {
+            $('#userMenu').hide();
+          }
+        });
+      });
+    </script>
   </head>
   <body class="bg-gray-100">
     {% block body %}
       <!-- Navigation Bar -->
-      <nav class="bg-blue-900 text-white shadow-lg">
+      <nav class="bg-blue-800 text-white">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-          <a href="{% url 'home' %}" class="text-2xl font-bold hover:text-blue-200">
-            Django Boards
-          </a>
-
-          <!-- Menu button for small screens (hidden by default) -->
-          <button class="block md:hidden text-white focus:outline-none">
+          <a href="{% url 'home' %}" class="text-xl font-bold">Django Boards</a>
+          
+          {% if user.is_authenticated %}
+          <!-- Menu button for small screens -->
+          <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
             </svg>
           </button>
+      
+          <div class="hidden md:flex md:items-center md:space-x-4" id="mainMenu">
+            <div class="relative">
+              <button id="userMenuButton" class="focus:outline-none">
+                {{ user.username }}
+              </button>
+              <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-md shadow-lg hidden">
+                <a href="#" class="block px-4 py-2 hover:bg-gray-200 rounded-md transition-colors">My account</a>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-200 rounded-md transition-colors">Change password</a>
+                <div class="border-t border-gray-300"></div>
+                <form action="{% url 'logout' %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="block px-4 py-2 ">Log out</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          {% else %}
+            <form class="flex items-center ml-auto">
+              <a href="{% url 'login' %}" class="btn btn-outline-secondary bg-transparent border border-white-400 text-white-700 hover:bg-gray-200  px-4 py-2 rounded">Log in</a>
+              <a href="{% url 'signup' %}" class="bg-green-100 text-black hover:bg-green-200 px-4 py-2 rounded ml-2">Sign up</a>
+            </form>
+          {% endif %}
 
-          <!-- Navbar links (hidden on small screens) -->
-          <ul class="hidden md:flex space-x-4">
-            <li><a href="#" class="hover:text-blue-300">{{ user.username }}</a></li>
-          </ul>
         </div>
       </nav>
 

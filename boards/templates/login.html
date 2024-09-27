@@ -1,0 +1,32 @@
+{% extends 'base_accounts.html' %}
+
+{% block title %}Log in to Django Boards{% endblock %}
+
+{% block content %}
+    <div class="flex justify-center">
+      <div class="w-full max-w-lg">
+        <div class="bg-white shadow-md rounded-lg">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-4">Login</h3>
+            <form method="post" novalidate>
+              {% csrf_token %}
+              {% include 'includes/form.html' %}
+              <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 px-4 rounded hover:bg-blue-700 transition duration-300 mt-4">Log In</button>
+            </form>
+          </div>
+          <div class="bg-gray-100 text-center p-4">
+            New to Django Boards?
+            <a href="{% url 'signup' %}" class="text-blue-600 hover:text-blue-800">Sign Up</a>
+          </div>
+          
+        </div>
+        <div class="text-center py-2">
+          <small>
+              <a href="#" class="text-gray-500 hover:text-gray-700">Forgot your password?</a>
+          </small>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+
