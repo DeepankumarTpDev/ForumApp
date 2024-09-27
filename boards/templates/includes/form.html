@@ -17,5 +17,8 @@
         {% else %}
             {% render_field field class="mt-1 block w-full p-2 border border-gray-300 rounded-md " %}
         {% endif %}
+        {% if field.help_text %}
+            <small class="text-gray-500 text-sm">{{ field.help_text }}</small>
+        {% endif %}
         </div>
 {% endfor %}

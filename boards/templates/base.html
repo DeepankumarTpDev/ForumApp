@@ -9,34 +9,45 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   </head>
   <body class="bg-gray-100">
-    
-    <!-- Navigation Bar -->
-    <nav class="bg-blue-900 text-white shadow-lg">
-      <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-        <a href="{% url 'home' %}" class="text-2xl font-bold hover:text-blue-200">
-          Django Boards
-        </a>
-      </div>
-    </nav>
+    {% block body %}
+      <!-- Navigation Bar -->
+      <nav class="bg-blue-900 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+          <a href="{% url 'home' %}" class="text-2xl font-bold hover:text-blue-200">
+            Django Boards
+          </a>
 
-    <!-- Main Container -->
-    <div class="container mx-auto my-8 px-4">
+          <!-- Menu button for small screens (hidden by default) -->
+          <button class="block md:hidden text-white focus:outline-none">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+          </button>
 
-      <!-- Breadcrumbs -->
-      <nav class="text-gray-700 text-sm mb-6">
-        <ol class="list-reset flex">
-          {% block breadcrumb %}
-          {% endblock %}
-        </ol>
+          <!-- Navbar links (hidden on small screens) -->
+          <ul class="hidden md:flex space-x-4">
+            <li><a href="#" class="hover:text-blue-300">{{ user.username }}</a></li>
+          </ul>
+        </div>
       </nav>
 
-      <!-- Content Block -->
-      <div class="bg-white p-8 shadow rounded-lg">
-        {% block content %}
-        {% endblock %}
+      <!-- Main Container -->
+      <div class="container mx-auto my-8 px-4">
+        <!-- Breadcrumbs -->
+        <nav class="text-gray-700 text-sm mb-6">
+          <ol class="list-reset flex">
+            {% block breadcrumb %}
+            {% endblock %}
+          </ol>
+        </nav>
+
+        <!-- Content Block -->
+        <div class="bg-white p-8 shadow rounded-lg">
+          {% block content %}
+          {% endblock %}
+        </div>
+
       </div>
-
-    </div>
-
+    {% endblock body %} 
   </body>
 </html>

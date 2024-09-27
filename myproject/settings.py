@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'boards',
-    'tailwind',
     'widget_tweaks',
+
+    'accounts',
+    'boards',
+    
 ]
 
 # TAILWIND_APP_NAME = 'your_tailwind_app'  # Use the actual name of your Tailwind app here

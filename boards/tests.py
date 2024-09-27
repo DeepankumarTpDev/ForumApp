@@ -95,6 +95,7 @@ class NewTopicTests(TestCase):
         self.assertContains(response, 'csrfmiddlewaretoken')
 
     def test_new_topic_valid_post_data(self):
+        self.client.login(username='john', password='123')
         url = reverse('new_topic', kwargs={'pk': 1})
         data = {
             'subject': 'Test title',
