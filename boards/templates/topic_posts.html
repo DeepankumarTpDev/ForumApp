@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load humanize %}
+{% load gravatar %}
 
 {% load static %}
 {% block title %}
@@ -43,7 +44,7 @@
       <div class="p-4">
         <div class="flex">
           <div class="w-1/4">
-            <img src="{% static 'img/avatar.png' %}" alt="{{ post.created_by.username }}" class="w-16 h-16 rounded-full mx-auto">
+            <img src="{{ post.created_by|gravatar }}" alt="{{ post.created_by.username }}" class="w-16 h-16 rounded-full mx-auto">
             <small class="block text-center text-gray-500">Posts: {{ post.created_by.posts.count }}</small>
           </div>
           <div class="w-3/4 pl-4">
