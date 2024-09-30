@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Post a reply
+{% endblock %}
+
+{% block breadcrumb %}
+  <ol class="breadcrumb inline-flex items-center space-x-2">
+    <li class="inline-flex items-center">
+      <a href="{% url 'home' %}" class="text-blue-600 hover:underline">Boards</a>
+      <svg class="w-4 h-4 mx-2 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>  
+    </li>
+    <li class="inline-flex items-center">
+      <a href="{% url 'board_topics' topic.board.pk %}" class="text-blue-600 hover:underline">{{ topic.board.name }}</a>
+      <svg class="w-4 h-4 mx-2 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </li>
+    <li class="inline-flex items-center">
+        <a href="{% url 'topic_posts' topic.board.pk topic.pk %}" class="text-blue-600 hover:underline">{{ topic.subject }}</a>
+        <svg class="w-4 h-4 mx-2 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </li>
+    <li class="inline-flex items-center text-gray-700">
+        Post a reply
+    </li>
+  </ol>
+{% endblock %}
+
+
+{% block content %}
+    <!-- We will add the main content here soon. -->
+    <div class="bg-gray-50 shadow-lg rounded-lg overflow-hidden mb-6">
+    <form method="post" novalidate class="space-y-4">
+      {% csrf_token %}
+      {% include 'includes/form.html' %}
+      <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 mb-4 rounded hover:bg-blue-700">Post a reply</button>
+    </form>
+    </div>
+
+    {% for post in topic.posts.all %}
+    <div class="bg-gray-50 shadow-lg rounded-lg overflow-hidden mb-6">
+      <div class="px-6 py-4">
+        <div class="flex justify-between items-center mb-4">
+          <div class="flex items-center">
+            <img src="{% static 'img/avatar.png' %}" alt="{{ post.created_by.username }}" class="w-10 h-10 rounded-full mr-4">
+            <div>
+              <strong class="text-lg text-gray-900">{{ post.created_by.username }}</strong>
+              <p class="text-sm text-gray-500">Posts: {{ post.created_by.posts.count }}</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <small class="text-sm text-gray-400">{{ post.created_at|date:"F j, Y, g:i a" }}</small>
+          </div>
+        </div>
+        <p class="text-gray-700 text-base leading-relaxed">{{ post.message }}</p>
+      </div>
+    </div>
+    {% endfor %}
+
+
+    
+{% endblock %}

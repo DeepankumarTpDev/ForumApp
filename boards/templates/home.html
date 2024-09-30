@@ -18,17 +18,31 @@
           <div class="flex justify-between items-center text-gray-700">
             <div>
               <span class="block text-lg font-semibold">Posts</span>
-              <span class="block text-2xl">0</span>
+              <span class="block text-2xl">{{ board.get_posts_count }}</span>
             </div>
             <div>
               <span class="block text-lg font-semibold">Topics</span>
-              <span class="block text-2xl">0</span>
+              <span class="block text-2xl">{{ board.topics.count }}</span>
             </div>
           </div>
         </div>
         <div class="bg-gray-50 p-4 rounded-b-lg">
           <span class="block text-gray-500 text-sm">Last Post:</span>
-          <span class="block text-gray-400 text-sm">No posts yet</span>
+          <span class="block text-gray-400 text-sm">
+            {% with post=board.get_last_post %}
+              {% if post %}
+                <small>
+                  <a href="{% url 'topic_posts' board.pk post.topic.pk %}">
+                    By {{ post.created_by.username }} at {{ post.created_at }}
+                  </a>
+                </small>
+              {% else %}
+                <small class="text-muted">
+                  <em>No posts yet.</em>
+                </small>
+              {% endif %}
+            {% endwith %}
+          </span>
         </div>
       </div>
     {% endfor %}
