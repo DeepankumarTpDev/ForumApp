@@ -8,6 +8,8 @@ from django.db.models import Count
 from django.views.generic import UpdateView, ListView
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
+
 # Create your views here.
 
 class BoardListView(ListView):
@@ -19,7 +21,7 @@ class TopicListView(ListView):
     model = Topic
     context_object_name = 'topics'
     template_name = 'topics.html'
-    paginate_by = 20
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         kwargs['board'] = self.board
@@ -85,7 +87,14 @@ def reply_topic(request, pk, topic_pk):
             topic.last_updated = timezone.now()  
             topic.save() 
 
-            return redirect('topic_posts', pk=pk, topic_pk=topic_pk)
+            topic_url = reverse('topic_posts', kwargs={'pk': pk, 'topic_pk': topic_pk})
+            topic_post_url = '{url}?page={page}#{id}'.format(
+                url=topic_url,
+                id=post.pk,
+                page=topic.get_page_count()
+            )
+
+            return redirect(topic_post_url)
     else:
         form = PostForm()
     return render(request, 'reply_topic.html', {'topic': topic, 'form': form})
