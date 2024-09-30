@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.urls import resolve, reverse
 
 from ..models import Board, Post, Topic
-from ..views import topic_posts
+from ..views import topic_posts, PostListView
 
 
 class TopicPostsTests(TestCase):
@@ -16,8 +16,12 @@ class TopicPostsTests(TestCase):
         self.response = self.client.get(url)
 
     def test_status_code(self):
-        self.assertEquals(self.response.status_code, 200)
+        self.assertEqual(self.response.status_code, 200)
 
     def test_view_function(self):
         view = resolve('/boards/1/topics/1/')
-        self.assertEquals(view.func, topic_posts)
+        self.assertEqual(view.func, topic_posts)
+
+    def test_view_function(self):
+        view = resolve('/boards/1/topics/1/')
+        self.assertEqual(view.func.view_class, PostListView)

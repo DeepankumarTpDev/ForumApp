@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse,resolve
-from .views import home,board_topics,new_topic
+from boards.views import home,board_topics,new_topic, TopicListView
 from django.contrib.auth.models import User
 from .forms import NewTopicForm
 from .models import Board, Post, Topic
@@ -32,3 +32,7 @@ class BoardTopicsTests(TestCase):
 
         self.assertContains(response, 'href="{0}"'.format(homepage_url))
         self.assertContains(response, 'href="{0}"'.format(new_topic_url))
+
+    def test_board_topics_url_resolves_board_topics_view(self):
+        view = resolve('/boards/1/')
+        self.assertEqual(view.func.view_class, TopicListView)

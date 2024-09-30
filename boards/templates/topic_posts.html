@@ -31,7 +31,7 @@
     <a href="{% url "reply_topic" topic.board.pk topic.pk%}" class="inline-block px-4 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-500 transition duration-200" role="button">Reply</a>
   </div>
 
-  {% for post in topic.posts.all %}
+  {% for post in posts %}
     <div class="bg-white shadow-md rounded-lg mb-4 overflow-hidden {% if forloop.first %}border-4 border-gray-800{% endif %}">
       {% if forloop.first %}
       <div class="bg-gray-800 text-white py-2 px-4 ">
@@ -60,6 +60,8 @@
       </div>
     </div>
   {% endfor %}
+  
+  {% include 'includes/pagination.html' %}
 
 {% endblock %}
 
