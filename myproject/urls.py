@@ -19,6 +19,8 @@ from django.urls import path
 from accounts import views as accounts_views
 from django.contrib.auth import views as auth_views
 from boards import views
+from accounts import views as accounts_views 
+
 urlpatterns = [
     path('', views.BoardListView.as_view(), name='home'),
 
@@ -54,5 +56,7 @@ urlpatterns = [
     path("boards/<int:pk>/topics/<int:topic_pk>/reply/", views.reply_topic, name='reply_topic'),
     path("boards/<int:pk>/topics/<int:topic_pk>/posts/<int:post_pk>/edit/", views.PostUpdateView.as_view(), name='edit_post'),
     path('admin/', admin.site.urls),
+
+    path('settings/account/', accounts_views.UserUpdateView.as_view(), name='my_account'),
     
 ]

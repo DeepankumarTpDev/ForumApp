@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}My account{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">My account</li>
+{% endblock %}
+
+{% block content %}
+  <div class="flex justify-center"> <!-- Tailwind equivalent for centering content -->
+    <div class="w-full max-w-lg"> <!-- Tailwind classes for width and responsiveness -->
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {% include 'includes/form.html' %}
+        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4">
+          Save changes
+        </button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

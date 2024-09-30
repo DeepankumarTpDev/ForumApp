@@ -6,6 +6,12 @@
     Post a reply
 {% endblock %}
 
+{% block javascript %}
+<script>
+    var simplemde = new SimpleMDE();
+</script>
+{% endblock %}
+
 {% block breadcrumb %}
   <ol class="breadcrumb inline-flex items-center space-x-2">
     <li class="inline-flex items-center">
@@ -58,7 +64,7 @@
             <small class="text-sm text-gray-400">{{ post.created_at|date:"F j, Y, g:i a" }}</small>
           </div>
         </div>
-        <p class="text-gray-700 text-base leading-relaxed">{{ post.message }}</p>
+        <p class="text-gray-700 text-base leading-relaxed">{{ post.get_message_as_markdown }}</p>
       </div>
     </div>
     {% endfor %}
