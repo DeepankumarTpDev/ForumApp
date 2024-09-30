@@ -22,7 +22,7 @@ class HomeTests(TestCase):
 
     def test_home_url_resolves_home_view(self):
         view = resolve('/')
-        self.assertEqual(view.func, home)
+        self.assertEqual(view.func.view_class, home)
 
     def test_home_view_args(self):
         boards = Board.objects.all()
