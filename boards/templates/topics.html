@@ -39,8 +39,19 @@
           </thead>
           <tbody class="text-gray-600 text-sm font-light">
             {% for topic in topics %}
+            {% url 'topic_posts' board.pk topic.pk as topic_url %}
               <tr class="border-b hover:bg-gray-100">
-                <td class="py-3 px-6"><a href="{% url 'topic_posts' board.pk topic.pk %}">{{ topic.subject }}</a></td>
+                <td class="py-3 px-6"><a href="{% url 'topic_posts' board.pk topic.pk %}">{{ topic.subject }}</a>
+                  <small class="text-muted">
+                    Pages:
+                    {% for i in topic.get_page_range %}
+                      <a href="{{ topic_url }}?page={{ i }}">{{ i }}</a>
+                    {% endfor %}
+                    {% if topic.has_many_pages %}
+                    ... <a href="{{ topic_url }}?page={{ topic.get_page_count }}">Last Page</a>
+                    {% endif %}
+                  </small>
+                </td>
                 <td class="py-3 px-6">{{ topic.starter.username }}</td>
                 <td class="py-3 px-6">{{ topic.replies }}</td>
                 <td class="py-3 px-6">{{ topic.views }}</td>
